@@ -5,36 +5,40 @@
 #include <algorithm>
 #include <iostream>
 #include <list>
+#include <type_traits>
 
 template<typename isDecType>
-  struct is_dec{
+  struct type_is{
       using type = isDecType;
 };
 
+template<typename T>
+struct is_dec : type_is<T> {};
+
 template<>
- struct is_dec<int>{
+ struct is_dec<int> : type_is<int>{
      using type = int;
  };
 
 template<>
-struct is_dec<long>{
-    using type = long;
-};
+struct is_dec<long> : type_is<long>{};
 
 template<>
-struct is_dec<short>{
-    using type = short;
-};
+struct is_dec<short> : type_is<short>{};
 
 template<>
-struct is_dec<char>{
-    using type = unsigned char;
-};
+struct is_dec<char> : type_is<char>{};
 
 
+template<int num, typename T>
+struct check_type : type_is<T>{};
 
 template<typename T>
-void print_ip(typename is_dec<T>::type arg){
+struct check_type<1,T> : type_is<is_dec<T>>{};
+
+
+template<typename T, typename dec_type = check_type<1,T>>
+void print_ip(dec_type arg){
     std::vector<int> ipAddress;
     for(auto i = 0, bytes_shift = 8 ; i < sizeof(typename is_dec<T>::type) ; i++){
         if(i == 0)
@@ -58,6 +62,9 @@ void print_ip(typename is_dec<T>::type arg){
 }
 
 
+//template<typename T, typename container_type = check_type<2,T>>
+//void print_ip(container_type arg){}
+
 
 
 int main(){
@@ -65,6 +72,8 @@ int main(){
     print_ip<short>(0);
     print_ip<int>(2130706433);
     print_ip<long>(8875824491850138409);
+    //print_ip<char*>("8875824491850138409");
+    //print_ip<std::vector<int>>(std::vector<int>{10,23,4,56,5});
 
     return 0;
 }
