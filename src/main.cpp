@@ -78,6 +78,10 @@ void print_ip(std::enable_if_t<is_stl_container<T>::value,T> const && arg){
 
 }
 
+template<typename T>
+void print_ip(std::enable_if_t<is_stl_container<T>::value,T> const && arg){
+
+}
 int main(){
     print_ip<char>(-1);
     print_ip<short>(0);
