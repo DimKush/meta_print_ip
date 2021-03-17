@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 
 # cmake --log-level
 set( CMAKE_MESSAGE_LOG_LEVEL "DEBUG" )
+set(CMAKE_CXX_STANDARD 17)
 
 set(MAJOR_VERSION 0)
 set(MINOR_VERSION 0)
