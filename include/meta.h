@@ -63,7 +63,7 @@ struct is_tuple_type<std::tuple<T,T,T,T>> : type_is<std::tuple<T,T,T,T>>{
 
 
 template<typename T>
-void print_ip(std::enable_if_t<std::is_arithmetic_v<T>, T> const && arg ){
+void print_ip(std::enable_if_t<std::is_arithmetic<T>::value, T> const && arg ){
     std::vector<int> ipAddress;
     for(auto i = 0, bytes_shift = 8 ; i < sizeof(T) ; i++){
         if(i == 0)
