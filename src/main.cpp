@@ -1,11 +1,3 @@
-#include <iostream>
-#include <type_traits>
-#include <vector>
-#include <list>
-#include <string>
-#include <algorithm>
-#include <tuple>
-
 #include "meta.h"
 
 int main(){
