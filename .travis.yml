@@ -1,4 +1,4 @@
-dist: xenial
+dist: bionic
 sudo: false #disable sudo in scripts
 language: cpp
 python: "3.7"
