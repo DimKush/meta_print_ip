@@ -1,4 +1,4 @@
-dist: xenial
+dist: bionic
 sudo: false #disable sudo in scripts
 language: cpp
 python: "3.7"
@@ -11,8 +11,8 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - gcc-6
-      - g++-6
+      - gcc-8
+      - g++-8
 
 before_install:
   # Install a supported cmake version (>= 3.14)

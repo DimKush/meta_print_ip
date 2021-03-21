@@ -5,6 +5,14 @@
 #ifndef META_PRINT_IP_META_H
 #define META_PRINT_IP_META_H
 
+#include <iostream>
+#include <type_traits>
+#include <vector>
+#include <list>
+#include <string>
+#include <algorithm>
+#include <tuple>
+
 
 template<class T>
 struct type_is{
