@@ -7,6 +7,7 @@
 #include <list>
 #include <string>
 #include <algorithm>
+#include <tuple>
 
 template<class T>
 struct type_is{
@@ -15,26 +16,53 @@ struct type_is{
 
 template<class T>
 struct is_stl_container :type_is<T>{
-    static const bool value = false;
+    static constexpr bool value = false;
 };
 
 template<>
 struct is_stl_container<std::vector<int>> : type_is<std::vector<int>>{
-    static const bool value = true;
+    static constexpr bool value = true;
 };
 
 template<>
 struct is_stl_container<std::list<int>> : type_is<std::list<int>>{
-    static const bool value = true;
+    static constexpr bool value = true;
 };
 
 template<>
 struct is_stl_container<std::string> : type_is<std::string>{
-    static const bool value = true;
+    static constexpr bool value = true;
 };
 
-template<class T>
-    auto is_stl_container_v = is_stl_container<T>::value;
+template<typename T>
+struct is_tuple_type : type_is<T>{
+    static constexpr bool value = false;
+};
+
+template<typename ... Args>
+struct is_tuple_type<std::tuple<Args...>> : type_is<std::tuple<Args...>>{
+    static constexpr bool value = false;
+};
+
+template<typename T, typename ... Args>
+struct is_tuple_type<std::tuple<T, Args...>> : type_is<std::tuple<T, Args...>>{
+    static constexpr bool value = false;
+};
+
+template<typename T, typename ... Args>
+struct is_tuple_type<std::tuple<T,T, Args...>> : type_is<std::tuple<T,T, Args...>>{
+    static constexpr bool value = false;
+};
+
+template<typename T, typename ... Args>
+struct is_tuple_type<std::tuple<T,T,T, Args...>> : type_is<std::tuple<T,T,T, Args...>>{
+    static constexpr bool value = false;
+};
+
+template<typename T>
+struct is_tuple_type<std::tuple<T,T,T,T>> : type_is<std::tuple<T,T,T,T>>{
+    static constexpr bool value = true;
+};
 
 
 template<typename T>
@@ -79,9 +107,13 @@ void print_ip(std::enable_if_t<is_stl_container<T>::value,T> const && arg){
 }
 
 template<typename T>
-void print_ip(std::enable_if_t<is_stl_container<T>::value,T> const && arg){
-
+void print_ip(std::enable_if_t<is_tuple_type<T>::value, T> const && arg){
+        std::cout << std::get<0>(arg) << ".";
+        std::cout << std::get<1>(arg) << ".";
+        std::cout << std::get<2>(arg) << ".";
+        std::cout << std::get<3>(arg) << "\n";
 }
+
 int main(){
     print_ip<char>(-1);
     print_ip<short>(0);
@@ -92,6 +124,8 @@ int main(){
     print_ip<std::list<int>>(std::list<int>{115,20,41,0});
     print_ip<std::string>(std::string{"10.10.20.20"});
 
-
+    print_ip<std::tuple<char, char, char, char>>(std::make_tuple('1','2','4','5'));
+    print_ip<std::tuple<int, int, int, int>>(std::make_tuple(12,233,44,66));
+    print_ip<std::tuple<std::string, std::string, std::string, std::string>>(std::make_tuple("155","100","10","20"));
     return 0;
 }
