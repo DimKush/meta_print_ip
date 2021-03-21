@@ -3,7 +3,7 @@
 > compilers: gcc6, g++6
 > Build system: Cmake v3.14
 
-[![Build Status](https://travis-ci.org/DimKush/meta_print_ip.svg?branch=main)(https://travis-ci.org/github/DimKush/meta_print_ip)]
+[![Build Status](https://travis-ci.org/DimKush/meta_print_ip.svg?branch=main)](https://travis-ci.org/github/DimKush/meta_print_ip)
 
 ## The main purpose
 
