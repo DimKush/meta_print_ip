@@ -69,6 +69,8 @@ struct is_tuple_type<std::tuple<T,T,T,T>> : type_is<std::tuple<T,T,T,T>>{
     static constexpr bool value = true;
 };
 
+template<typename T>
+void print_ip(T arg);
 
 template<typename T>
 void print_ip(std::enable_if_t<std::is_arithmetic_v<T>, T> const && arg ){
