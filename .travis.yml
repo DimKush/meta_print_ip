@@ -13,6 +13,7 @@ addons:
     packages:
       - gcc-8
       - g++-8
+      - doxygen
 
 before_install:
   # Install a supported cmake version (>= 3.14)
